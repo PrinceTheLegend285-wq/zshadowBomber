@@ -970,7 +970,7 @@ if number not in PROTECTED_NUMBERS[user_id]:
 @dp.message(ProtectState.waiting_for_remove)
 async def remove_protected_number(message: types.Message, state: FSMContext):
     user_id = message.from_user.id
-
+number = clean_phone_number(message.text.strip())
 # Admin can remove any number
 if user_id in ADMIN_IDS:
     for uid in PROTECTED_NUMBERS:
