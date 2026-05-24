@@ -964,36 +964,6 @@ if number not in PROTECTED_NUMBERS[user_id]:
     )
     await state.clear()
 
-user_id = message.from_user.id
-
-# Admin sees all numbers
-if user_id in ADMIN_IDS:
-    text = "🛡 All Protected Numbers:\n\n"
-
-    for uid, nums in PROTECTED_NUMBERS.items():
-        text += f"👤 User {uid}:\n"
-
-        for num in nums:
-            text += f"• {num}\n"
-
-        text += "\n"
-
-    await message.answer(text)
-
-# Normal users see only their own
-else:
-    user_numbers = PROTECTED_NUMBERS.get(user_id, [])
-
-    if not user_numbers:
-        await message.answer("❌ You have no protected numbers.")
-        return
-
-    text = "🛡 Your Protected Numbers:\n\n"
-
-    for num in user_numbers:
-        text += f"• {num}\n"
-
-    await message.answer(text)
 @dp.message(ProtectState.waiting_for_remove)
 async def remove_protected_number(message: types.Message, state: FSMContext):
     user_id = message.from_user.id
