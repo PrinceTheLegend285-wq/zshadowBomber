@@ -1758,7 +1758,7 @@ async def adm_bc_init(callback: types.CallbackQuery, state: FSMContext):
 @dp.message(AdminState.waiting_for_broadcast)
 async def process_broadcast(message: types.Message, state: FSMContext):
     await message.answer("📢 Broadcast")
-    await state.clear()
+
     
     msg = message.text
     try:
