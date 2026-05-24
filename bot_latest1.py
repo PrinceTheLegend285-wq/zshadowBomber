@@ -939,8 +939,9 @@ async def ask_protect(message: types.Message, state: FSMContext):
 @dp.message(ProtectState.waiting_for_number)
 async def process_protect(message: types.Message, state: FSMContext):
     """Process number protection"""
+
     number = clean_phone_number(message.text.strip())
-    
+
     if not number or not is_valid_indian_number(number):
         await message.answer(
             "<b>❌ Invalid Number!</b>\n"
@@ -948,25 +949,24 @@ async def process_protect(message: types.Message, state: FSMContext):
             "Example: <code>9876543210</code>"
         )
         return
-    
-user_id = message.from_user.id
 
-if user_id not in PROTECTED_NUMBERS:
-    PROTECTED_NUMBERS[user_id] = []
+    user_id = message.from_user.id
 
-if number not in PROTECTED_NUMBERS[user_id]:
-    PROTECTED_NUMBERS[user_id].append(number)
-    await message.answer(
-        f"<b>✅ NUMBER PROTECTED!</b>\n\n"
-        f"Number: <code>{number}</code>\n"
-        f"Status: 🛡️ SAFE\n\n"
-        f"This number is now immune to all attacks."
-    )
-    
+    if user_id not in PROTECTED_NUMBERS:
+        PROTECTED_NUMBERS[user_id] = []
+
+    if number not in PROTECTED_NUMBERS[user_id]:
+        PROTECTED_NUMBERS[user_id].append(number)
+
+        await message.answer(
+            f"<b>✅ NUMBER PROTECTED!</b>\n\n"
+            f"Number: <code>{number}</code>\n"
+            f"Status: 🛡 SAFE\n\n"
+            f"This number is now immune to all attacks."
+        )
+
     await state.clear()
     return
-
-
 @dp.message(ProtectState.waiting_for_remove)
 async def remove_protected_number(message: types.Message, state: FSMContext):
     user_id = message.from_user.id
