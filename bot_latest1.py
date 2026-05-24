@@ -1169,9 +1169,6 @@ if number in all_protected:
 if not await check_subscription(user_id):
     return await message.answer("🔒 Join channels first!")
 
-if not await check_subscription(user_id):
-    return await message.answer("🔒 Join channels first!")
-
 stop_signals[user_id] = False
 
 user_attacks[user_id] = {
