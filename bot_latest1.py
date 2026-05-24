@@ -995,7 +995,8 @@ else:
 
     await message.answer(text)
 @dp.message(ProtectState.waiting_for_remove)
-user_id = message.from_user.id
+async def remove_protected_number(message: types.Message, state: FSMContext):
+    user_id = message.from_user.id
 
 # Admin can remove any number
 if user_id in ADMIN_IDS:
