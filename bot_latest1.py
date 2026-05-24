@@ -1157,20 +1157,18 @@ async def cmd_bomb(message: types.Message):
     number = clean_phone_number(args[1])
     if not number or not is_valid_indian_number(number):
         return await message.answer("❌ Invalid number!")
-    
+
 all_protected = []
 
-for nums in PROTECTED_NUMBERS.values():
-    all_protected.extend(nums)
+    for nums in PROTECTED_NUMBERS.values():
+        all_protected.extend(nums)
 
-if number in all_protected:
-    return await message.answer("🛡 This number is protected.")
+    if number in all_protected:
+        return await message.answer("🛡 This number is protected.")
 
-if not await check_subscription(user_id):
-    return await message.answer("🔒 Join channels first!")
-
-stop_signals[user_id] = False
-
+    if not await check_subscription(user_id):
+        return await message.answer("🔒 Join channels first!")
+        
 user_attacks[user_id] = {
     'phone': number,
     'start_time': time.time()
