@@ -1755,24 +1755,38 @@ async def adm_bc_init(callback: types.CallbackQuery, state: FSMContext):
     await callback.message.answer("📢 Enter broadcast message:")
     await state.set_state(AdminState.waiting_for_broadcast)
 
+
 @dp.message(AdminState.waiting_for_broadcast)
 async def process_broadcast(message: types.Message, state: FSMContext):
+
     await message.answer("📢 Broadcast")
 
-    
     msg = message.text
+
     try:
         users = supabase.table("users").select("id").execute().data
+
         count = 0
+
         for u in users:
             try:
-                await bot.send_message(u["id"], f"<b>📢 BROADCAST MESSAGE</b>\n\n{msg}")
+                await bot.send_message(
+                    u["id"],
+                    f"<b>📢 BROADCAST MESSAGE</b>\n\n{msg}"
+                )
+
                 count += 1
                 await asyncio.sleep(0.05)
-            except: pass
+
+            except:
+                pass
+
         await message.answer(f"✅ Broadcast sent to {count} users.")
+
     except Exception as e:
         await message.answer(f"❌ Failed: {e}")
+
+    await state.clear()
 
 @dp.message(Command("allprotected"))
 async def all_protected(message: types.Message):
