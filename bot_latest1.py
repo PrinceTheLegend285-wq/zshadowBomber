@@ -969,25 +969,42 @@ async def process_protect(message: types.Message, state: FSMContext):
     return
 @dp.message(ProtectState.waiting_for_remove)
 async def remove_protected_number(message: types.Message, state: FSMContext):
+
     user_id = message.from_user.id
-number = clean_phone_number(message.text.strip())
-# Admin can remove any number
-if user_id in ADMIN_IDS:
-    for uid in PROTECTED_NUMBERS:
-        if number in PROTECTED_NUMBERS[uid]:
-            PROTECTED_NUMBERS[uid].remove(number)
-            await message.answer(f"✅ Admin removed protection from {number}")
-            return
+    number = clean_phone_number(message.text.strip())
 
-    await message.answer("❌ Number not found.")
-    return
+    # Admin can remove any number
+    if user_id in ADMIN_IDS:
+        for uid in PROTECTED_NUMBERS:
+            if number in PROTECTED_NUMBERS[uid]:
+                PROTECTED_NUMBERS[uid].remove(number)
 
-# Normal users can remove only their own numbers
-if user_id in PROTECTED_NUMBERS and number in PROTECTED_NUMBERS[user_id]:
-    PROTECTED_NUMBERS[user_id].remove(number)
-    await message.answer(f"✅ Removed protection from {number}")
-else:
-    await message.answer("❌ You can only remove your own protected numbers.")
+                await message.answer(
+                    f"✅ Admin removed protection from {number}"
+                )
+
+                await state.clear()
+                return
+
+        await message.answer("❌ Number not found.")
+        await state.clear()
+        return
+
+    # Normal users can remove only their own numbers
+    if user_id in PROTECTED_NUMBERS and number in PROTECTED_NUMBERS[user_id]:
+
+        PROTECTED_NUMBERS[user_id].remove(number)
+
+        await message.answer(
+            f"✅ Removed protection from {number}"
+        )
+
+    else:
+        await message.answer(
+            "❌ You can only remove your own protected numbers."
+        )
+
+    await state.clear()
 @dp.message(F.text == "👤 MY PROFILE")
 async def show_profile(message: types.Message):
     """Show user profile"""
