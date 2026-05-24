@@ -1718,7 +1718,7 @@ async def protected_numbers(message: types.Message):
 
     for num in user_numbers:
         text += f"• {num}\n"
-s
+
     await message.answer(text)
 
 @dp.message(Command("admin"))
