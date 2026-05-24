@@ -962,7 +962,10 @@ if number not in PROTECTED_NUMBERS[user_id]:
         f"Status: 🛡️ SAFE\n\n"
         f"This number is now immune to all attacks."
     )
+    
     await state.clear()
+    return
+
 
 @dp.message(ProtectState.waiting_for_remove)
 async def remove_protected_number(message: types.Message, state: FSMContext):
