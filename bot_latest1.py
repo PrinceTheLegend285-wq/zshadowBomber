@@ -1717,7 +1717,7 @@ async def protected_numbers(message: types.Message):
 
     for num in user_numbers:
         text += f"• {num}\n"
-
+s
     await message.answer(text)
 
 @dp.message(Command("admin"))
@@ -1756,7 +1756,9 @@ async def adm_bc_init(callback: types.CallbackQuery, state: FSMContext):
 
 @dp.message(AdminState.waiting_for_broadcast)
 async def process_broadcast(message: types.Message, state: FSMContext):
-📢 Broadcast    await state.clear()
+await message.answer("📢 Broadcast")
+await state.clear()
+    
     msg = message.text
     try:
         users = supabase.table("users").select("id").execute().data
