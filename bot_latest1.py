@@ -1164,12 +1164,10 @@ for nums in PROTECTED_NUMBERS.values():
     all_protected.extend(nums)
 
 if number in all_protected:
-    await message.answer("🛡 This number is protected.")
-    return
+    return await message.answer("🛡 This number is protected.")
 
-if number in all_protected:
-    await message.answer("🛡 This number is protected.")
-    return
+if not await check_subscription(user_id):
+    return await message.answer("🔒 Join channels first!")
 
 if not await check_subscription(user_id):
     return await message.answer("🔒 Join channels first!")
