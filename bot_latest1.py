@@ -1166,17 +1166,21 @@ for nums in PROTECTED_NUMBERS.values():
 if number in all_protected:
     await message.answer("🛡 This number is protected.")
     return
-    
-    if not await check_subscription(user_id):
-        return await message.answer("🔒 Join channels first!")
 
-    stop_signals[user_id] = False
-    user_attacks[user_id] = {'phone': number, 'start_time': time.time(), 'delay': 5}
-    attack_stats[user_id] = {'Call': 0, 'SMS': 0, 'WhatsApp': 0, 'cycles': 0}
-    
-    msg = await message.answer(f"<b>⚔️ BOMBING:</b> <code>{number}</code>\n<b>STATUS:</b> <code>STARTED (Group Mode)</code>", reply_markup=create_attack_keyboard())
-    await log_attack(user_id, number, "GROUP_CMD")
-    asyncio.create_task(run_infinite_attack(user_id, number, message.chat.id, msg.message_id))
+if number in all_protected:
+    await message.answer("🛡 This number is protected.")
+    return
+
+if not await check_subscription(user_id):
+    return await message.answer("🔒 Join channels first!")
+
+stop_signals[user_id] = False
+user_attacks[user_id] = ...
+attack_stats[user_id] = ...
+
+msg = await message.answer(...)
+await log_attack(...)
+asyncio.create_task(...)
 
 @dp.message(AttackState.waiting_for_number)
 async def process_quick_attack_number(message: types.Message, state: FSMContext):
