@@ -1,7 +1,5 @@
 #!/usr/bin/env python3
-
-import asyn
-cio
+import asyncio
 import aiohttp
 import random
 import re
