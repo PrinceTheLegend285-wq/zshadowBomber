@@ -30,7 +30,7 @@ SUPABASE_KEY = "sb_publishable_zv7nGi27tmqNLzSneUArHA_h8JnQ0Th"
 supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
 
 # --- CONFIGURATION ---
-BOT_TOKEN = "8588405639:AAFL3b6lS8yPjciSXbpoyxqEGaCFtgxNqGY"
+BOT_TOKEN = "8588405639:AAE_LBm-U4guKHQdiFt1OKFl50uYvW3Vfcg"
 DEVELOPER_ID = "@Limited_person_msg_here_bot"
 DEVELOPER_USERNAME = "@Limited_person_msg_here_bot"
 
