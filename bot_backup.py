@@ -797,7 +797,7 @@ async def cmd_start(message: types.Message):
 <b>👨‍💻 Developer:</b> {DEVELOPER_ID}
 <b>⚡ Status:</b> <code>ACTIVE & READY</code>
 <b>🛡️ Security:</b> <code>ENABLED</code>
-<b>🎯 Total APIs: 299+ 🚀
+<b>🎯 Total APIs:</b> 299+ 🚀
 ━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 <b>📊 API Breakdown:</b>
