@@ -1158,13 +1158,13 @@ async def cmd_bomb(message: types.Message):
     if not number or not is_valid_indian_number(number):
         return await message.answer("❌ Invalid number!")
 
-    all_protected = []
+all_protected = []
 
-            for nums in PROTECTED_NUMBERS.values():
-                all_protected.extend(nums)
+for nums in PROTECTED_NUMBERS.values():
+    all_protected.extend(nums)
 
-        if number in all_protected:
-            return await message.answer("🛡 This number is protected.")
+if number in all_protected:
+    return await message.answer("🛡 This number is protected.")
 
     if not await check_subscription(user_id):
         return await message.answer("🔒 Join channels first!")
